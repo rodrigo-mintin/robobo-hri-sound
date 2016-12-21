@@ -1,1 +1,1 @@
-include ':app', ':sound', ':remote-control'
+include ':app', ':sound'
