@@ -79,7 +79,7 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
 
     @Override
     public void shutdown() throws InternalErrorException {
-
+       pitchDetectionModule.unsuscribe(this);
     }
 
     @Override

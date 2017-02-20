@@ -38,6 +38,7 @@ import com.mytechia.robobo.framework.remote_control.remotemodule.Command;
 import com.mytechia.robobo.framework.remote_control.remotemodule.ICommandExecutor;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
+import java.util.Random;
 import java.util.TimerTask;
 
 /**
@@ -49,39 +50,58 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
     private MediaPlayer mediaPlayer;
     private Context context;
     private String TAG = "AndroidEmotionSound";
+    private static Random r = new Random();
+
+
+    private static int generateRandom(int min, int max) {
+        // max - min + 1 will create a number in the range of min and max, including max. If you don´t want to include it, just delete the +1.
+        // adding min to it will finally create the number in the range between min and max
+        return r.nextInt(max-min+1) + min;
+    }
 
     @Override
     public void playSound(int sound) {
         switch (sound){
-            case ALERT_SOUND:
 
-                mediaPlayer = MediaPlayer.create(context, R.raw.alerta);
-                mediaPlayer.start();
+
+            case MOAN_SOUND:
+                switch (generateRandom(0,3)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan02);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan03);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan04);
+                        mediaPlayer.start();
+                        break;
+                }
+
                 break;
-            case CLAPS_SOUND:
 
-                mediaPlayer = MediaPlayer.create(context, R.raw.clapping);
-                mediaPlayer.start();
-                break;
-            case BOOOOO_SOUND:
+            case PURR_SOUND:
+                switch (generateRandom(0,2)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring02);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring03);
+                        mediaPlayer.start();
+                        break;
 
-                mediaPlayer = MediaPlayer.create(context, R.raw.boo);
-                mediaPlayer.start();
-                break;
-            case LAUGH_SOUND:
-
-                mediaPlayer = MediaPlayer.create(context, R.raw.laugh);
-                mediaPlayer.start();
-                break;
-            case ALARM_SOUND:
-
-                mediaPlayer = MediaPlayer.create(context, R.raw.alarm);
-                mediaPlayer.start();
-                break;
-            case RIMSHOT_SOUND:
-
-                mediaPlayer = MediaPlayer.create(context, R.raw.rimshot);
-                mediaPlayer.start();
+                }
                 break;
         }
 
@@ -102,23 +122,11 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
                 public void executeCommand(Command c, IRemoteControlModule rcmodule) {
                     Log.d(TAG,c.toString());
                     switch (c.getParameters().get("sound")) {
-                        case "alert":
-                            playSound(ALERT_SOUND);
+                        case "moan":
+                            playSound(MOAN_SOUND);
                             break;
-                        case "claps":
-                            playSound(CLAPS_SOUND);
-                            break;
-                        case "booooo":
-                            playSound(BOOOOO_SOUND);
-                            break;
-                        case "laugh":
-                            playSound(LAUGH_SOUND);
-                            break;
-                        case "alarm":
-                            playSound(ALARM_SOUND);
-                            break;
-                        case "rimshot":
-                            playSound(RIMSHOT_SOUND);
+                        case "purr":
+                            playSound(PURR_SOUND);
                             break;
                     }
                 }

@@ -29,12 +29,8 @@ import com.mytechia.robobo.framework.IModule;
  */
 public interface IEmotionSoundModule extends IModule {
 
-    int ALERT_SOUND = 0;
-    int CLAPS_SOUND = 1;
-    int BOOOOO_SOUND = 2;
-    int LAUGH_SOUND = 3;
-    int ALARM_SOUND = 4;
-    int RIMSHOT_SOUND = 5;
+    int MOAN_SOUND = 0;
+    int PURR_SOUND = 1;
 
     /**
      * Plays a prefixed emotion sound
