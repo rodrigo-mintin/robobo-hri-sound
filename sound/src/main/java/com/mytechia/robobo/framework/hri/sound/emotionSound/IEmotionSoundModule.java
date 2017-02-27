@@ -29,8 +29,21 @@ import com.mytechia.robobo.framework.IModule;
  */
 public interface IEmotionSoundModule extends IModule {
 
-    int MOAN_SOUND = 0;
-    int PURR_SOUND = 1;
+
+    int ANGRY_SOUND = 0;
+    int APPROVE_SOUND = 1;
+    int DISAPPROVE_SOUND = 2;
+    int DISCOMFORT_SOUND = 3;
+    int DOUBTFUL_SOUND = 4;
+    int LAUGH_SOUND = 5;
+    int MUMBLE_SOUND = 6;
+    int LIKES_SOUND = 7;
+    int MOAN_SOUND = 8;
+    int OUCH_SOUND = 9;
+    int PURR_SOUND = 10;
+    int THINKING_SOUND = 11;
+    int VARIOUS_SOUND = 12;
+
 
     /**
      * Plays a prefixed emotion sound

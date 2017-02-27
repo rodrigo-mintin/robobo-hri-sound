@@ -26,20 +26,17 @@ package com.mytechia.robobo.framework.hri.sound.emotionSound.android;
 import android.content.Context;
 import android.media.MediaPlayer;
 import android.util.Log;
-import android.view.SurfaceView;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.R;
 import com.mytechia.robobo.framework.hri.sound.emotionSound.IEmotionSoundModule;
-import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
 import com.mytechia.robobo.framework.remote_control.remotemodule.Command;
 import com.mytechia.robobo.framework.remote_control.remotemodule.ICommandExecutor;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
 import java.util.Random;
-import java.util.TimerTask;
 
 /**
  * Implementation of the emotion sound module
@@ -64,22 +61,217 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
         switch (sound){
 
 
-            case MOAN_SOUND:
-                switch (generateRandom(0,3)){
+            case ANGRY_SOUND:
+                switch (generateRandom(0,2)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry01_R01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan02);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry02_R01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan03);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry03_R01);
+                        mediaPlayer.start();
+                        break;
+
+                }
+
+                break;
+
+            case APPROVE_SOUND:
+                switch (generateRandom(0,2)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve03_R01);
+                        mediaPlayer.start();
+                        break;
+
+                }
+
+                break;
+
+            case DISAPPROVE_SOUND:
+                switch (generateRandom(0,5)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove03_R01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan04);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove04_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 4:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove05_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 5:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove06_R01);
+                        mediaPlayer.start();
+                        break;
+                }
+
+                break;
+
+            case DISCOMFORT_SOUND:
+                switch (generateRandom(0,1)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort02_R01);
+                        mediaPlayer.start();
+                        break;
+                }
+
+                break;
+            case DOUBTFUL_SOUND:
+                switch (generateRandom(0,1)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful02_R01);
+                        mediaPlayer.start();
+                        break;
+                }
+
+                break;
+
+            case LAUGH_SOUND:
+                switch (generateRandom(0,7)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh03_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh04_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 4:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh05_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 5:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh06_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 6:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh07_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 7:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh08_R01);
+                        mediaPlayer.start();
+                        break;
+                }
+
+                break;
+
+            case LIKES_SOUND:
+
+                    mediaPlayer = MediaPlayer.create(context, R.raw.likes01_R01);
+                    mediaPlayer.start();
+
+            case MOAN_SOUND:
+                switch (generateRandom(0,3)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan03_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan04_R01);
+                        mediaPlayer.start();
+                        break;
+                }
+
+                break;
+
+            case MUMBLE_SOUND:
+                switch (generateRandom(0,6)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble03_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble04_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 4:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble05_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 5:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble06_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 6:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble07_R01);
+                        mediaPlayer.start();
+                        break;
+
+                }
+
+                break;
+
+            case OUCH_SOUND:
+                switch (generateRandom(0,3)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch03_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch04_R01);
                         mediaPlayer.start();
                         break;
                 }
@@ -89,19 +281,42 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case PURR_SOUND:
                 switch (generateRandom(0,2)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring01_R01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring02);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring02_R01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring03);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring03_R01);
                         mediaPlayer.start();
                         break;
 
                 }
+                break;
+
+            case THINKING_SOUND:
+                switch (generateRandom(0,3)){
+                    case 0:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 1:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_02_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 2:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok01_R01);
+                        mediaPlayer.start();
+                        break;
+                    case 3:
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok02_R01);
+                        mediaPlayer.start();
+                        break;
+
+                }
+
                 break;
         }
 
@@ -128,6 +343,41 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
                         case "purr":
                             playSound(PURR_SOUND);
                             break;
+                        case "angry":
+                            playSound(ANGRY_SOUND);
+                            break;
+                        case "approve":
+                            playSound(APPROVE_SOUND);
+                            break;
+                        case "disapprove":
+                            playSound(DISAPPROVE_SOUND);
+                            break;
+                        case "discomfort":
+                            playSound(DISCOMFORT_SOUND);
+                            break;
+                        case "doubtful":
+                            playSound(DOUBTFUL_SOUND);
+                            break;
+                        case "laugh":
+                            playSound(LAUGH_SOUND);
+                            break;
+                        case "likes":
+                            playSound(LIKES_SOUND);
+                            break;
+                        case "mumble":
+                            playSound(MUMBLE_SOUND);
+                            break;
+                        case "ouch":
+                            playSound(OUCH_SOUND);
+                            break;
+                        case "thinking":
+                            playSound(THINKING_SOUND);
+                            break;
+                        case "various":
+                            playSound(VARIOUS_SOUND);
+                            break;
+
+
                     }
                 }
             });
