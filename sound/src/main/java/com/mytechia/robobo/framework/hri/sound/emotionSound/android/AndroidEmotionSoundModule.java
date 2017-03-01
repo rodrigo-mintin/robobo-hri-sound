@@ -64,15 +64,15 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case ANGRY_SOUND:
                 switch (generateRandom(0,2)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.angry01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.angry02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.angry03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.angry03_r01);
                         mediaPlayer.start();
                         break;
 
@@ -83,15 +83,15 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case APPROVE_SOUND:
                 switch (generateRandom(0,2)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.approve01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.approve02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.approve03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.approve03_r01);
                         mediaPlayer.start();
                         break;
 
@@ -102,27 +102,27 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case DISAPPROVE_SOUND:
                 switch (generateRandom(0,5)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove03_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove04_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove04_r01);
                         mediaPlayer.start();
                         break;
                     case 4:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove05_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove05_r01);
                         mediaPlayer.start();
                         break;
                     case 5:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove06_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.disapprove06_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -132,11 +132,11 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case DISCOMFORT_SOUND:
                 switch (generateRandom(0,1)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.discomfort02_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -145,11 +145,11 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case DOUBTFUL_SOUND:
                 switch (generateRandom(0,1)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.doubtful02_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -159,35 +159,35 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case LAUGH_SOUND:
                 switch (generateRandom(0,7)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh03_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh04_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh04_r01);
                         mediaPlayer.start();
                         break;
                     case 4:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh05_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh05_r01);
                         mediaPlayer.start();
                         break;
                     case 5:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh06_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh06_r01);
                         mediaPlayer.start();
                         break;
                     case 6:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh07_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh07_r01);
                         mediaPlayer.start();
                         break;
                     case 7:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh08_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.laugh08_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -196,25 +196,25 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
 
             case LIKES_SOUND:
 
-                    mediaPlayer = MediaPlayer.create(context, R.raw.likes01_R01);
+                    mediaPlayer = MediaPlayer.create(context, R.raw.likes01_r01);
                     mediaPlayer.start();
 
             case MOAN_SOUND:
                 switch (generateRandom(0,3)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan03_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.moan04_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.moan04_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -224,31 +224,31 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case MUMBLE_SOUND:
                 switch (generateRandom(0,6)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble03_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble04_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble04_r01);
                         mediaPlayer.start();
                         break;
                     case 4:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble05_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble05_r01);
                         mediaPlayer.start();
                         break;
                     case 5:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble06_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble06_r01);
                         mediaPlayer.start();
                         break;
                     case 6:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble07_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.mumble07_r01);
                         mediaPlayer.start();
                         break;
 
@@ -259,19 +259,19 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case OUCH_SOUND:
                 switch (generateRandom(0,3)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch03_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch04_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.ouch04_r01);
                         mediaPlayer.start();
                         break;
                 }
@@ -281,15 +281,15 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case PURR_SOUND:
                 switch (generateRandom(0,2)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.purring03_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.purring03_r01);
                         mediaPlayer.start();
                         break;
 
@@ -299,19 +299,19 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             case THINKING_SOUND:
                 switch (generateRandom(0,3)){
                     case 0:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_01_r01);
                         mediaPlayer.start();
                         break;
                     case 1:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_02_r01);
                         mediaPlayer.start();
                         break;
                     case 2:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok01_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok01_r01);
                         mediaPlayer.start();
                         break;
                     case 3:
-                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok02_R01);
+                        mediaPlayer = MediaPlayer.create(context, R.raw.thinking_ok02_r01);
                         mediaPlayer.start();
                         break;
 
