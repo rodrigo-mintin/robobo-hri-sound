@@ -28,6 +28,7 @@ import android.media.AudioTrack;
 import android.util.Log;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.INoteDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.noteGeneration.ANoteGeneratorModule;
@@ -54,7 +55,7 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
     @Override
     public void playNote(Note note, int timems) {
 
-        Log.d(TAG,"Playing note: "+note.toString());
+        m.log(LogLvl.TRACE, TAG,"Playing note: "+note.toString());
         if (lasttone!=null){
             lasttone.release();
         }
@@ -80,13 +81,13 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
         try {
             SeqNote sn = sequence.pop();
-            Log.d(TAG,sn.toString());
+            m.log(LogLvl.TRACE, TAG,sn.toString());
             playNote(sn.note,sn.timems);
             waitTask = new WaitTask();
 
             timer.schedule(waitTask,sn.timems);
         }catch (NoSuchElementException e){
-            Log.d(TAG,"END SEQUENCE");
+            m.log(LogLvl.TRACE, TAG,"END SEQUENCE");
             notifySequenceEnd();
         }
     }
@@ -133,7 +134,7 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
     private double noteToFreq(Note note){
         double freq = 220* Math.pow(2,(note.index/12.0));
-        Log.d(TAG,"Index =" +note.index+"Freq: " +freq);
+        m.log(LogLvl.TRACE, TAG,"Index =" +note.index+"Freq: " +freq);
         return freq;
 
     }

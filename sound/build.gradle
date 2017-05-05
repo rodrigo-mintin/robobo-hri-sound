@@ -7,8 +7,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 23
-        versionCode 6
-        versionName "0.2.5"
+        versionCode 7
+        versionName "0.3.0"
     }
     buildTypes {
         release {
@@ -25,9 +25,9 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.mytechia:robobo-framework:0.3.5'
+    compile 'com.mytechia:robobo-framework:1.0.0'
     compile files('libs/TarsosDSP-Android-latest.jar')
-    compile 'com.mytechia:robobo-remote-control-module:0.2.4'
+    compile 'com.mytechia:robobo-remote-control-module:0.3.0'
 }
 
 

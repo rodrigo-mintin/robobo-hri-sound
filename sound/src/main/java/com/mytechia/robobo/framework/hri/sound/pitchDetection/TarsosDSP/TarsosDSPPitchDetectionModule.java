@@ -26,6 +26,7 @@ import android.content.res.AssetManager;
 import android.util.Log;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.APitchDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
@@ -64,6 +65,8 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
     //region IModule methods
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
+        m = manager;
+
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
 
@@ -76,7 +79,7 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
         samplerate = Integer.parseInt(properties.getProperty("samplerate"));
         buffersize = Integer.parseInt(properties.getProperty("buffersize"));
         overlap = Integer.parseInt(properties.getProperty("overlap"));
-        Log.d(TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
+        m.log( TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
 
         dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
 

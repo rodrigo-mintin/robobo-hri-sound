@@ -22,6 +22,7 @@
 
 package com.mytechia.robobo.framework.hri.sound.noteDetection;
 
+import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchListener;
 
 import java.util.HashSet;
@@ -32,7 +33,7 @@ import java.util.HashSet;
 public abstract class ANoteDetectionModule implements INoteDetectionModule {
     private HashSet<INoteListener> listeners;
 
-
+    protected RoboboManager m;
 
     public ANoteDetectionModule(){
         listeners = new HashSet<INoteListener>();

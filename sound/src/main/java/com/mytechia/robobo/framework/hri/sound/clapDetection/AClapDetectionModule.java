@@ -24,6 +24,7 @@ package com.mytechia.robobo.framework.hri.sound.clapDetection;
 
 import android.util.Log;
 
+import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 
@@ -37,6 +38,7 @@ import java.util.HashSet;
 public abstract class AClapDetectionModule implements IClapDetectionModule {
     private HashSet<IClapListener> listeners;
     protected IRemoteControlModule remoteModule = null;
+    protected RoboboManager m;
 
     public AClapDetectionModule(){
         listeners = new HashSet<IClapListener>();
@@ -44,7 +46,7 @@ public abstract class AClapDetectionModule implements IClapDetectionModule {
 
     @Override
     public void suscribe(IClapListener listener) {
-        Log.d("FD_module", "Suscribed:"+listener.toString());
+        m.log("FD_module", "Suscribed:"+listener.toString());
         listeners.add(listener);
     }
 

@@ -27,6 +27,7 @@ import android.util.Log;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
 import com.mytechia.commons.util.thread.Threads;
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.clapDetection.AClapDetectionModule;
@@ -70,6 +71,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
     //region IModule methods
     @Override
     public void startup(RoboboManager manager) {
+        m = manager;
         try {
             dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
         } catch (ModuleNotFoundException e) {
@@ -94,7 +96,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
             e.printStackTrace();
         }
 
-        Log.d(TAG,"Properties loaded: "+samplerate+" "+buffersize);
+        m.log(TAG,"Properties loaded: "+samplerate+" "+buffersize);
 
 
 
@@ -104,7 +106,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
 
                     @Override
                     public void handleOnset(double time, double salience) {
-                        Log.d(TAG, "Clap detected!");
+                        m.log(LogLvl.TRACE, TAG, "Clap detected!");
                         notifyClap(time);
                     }
                 }, sensitivity, threshold);

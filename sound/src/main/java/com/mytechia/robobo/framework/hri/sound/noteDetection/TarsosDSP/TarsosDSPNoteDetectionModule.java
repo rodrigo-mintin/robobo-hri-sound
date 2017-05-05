@@ -28,6 +28,7 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.ANoteDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.Note;
@@ -60,6 +61,7 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
     //region IModule methods
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
+        m = manager;
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
 
@@ -104,7 +106,7 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
             if (lastNote!=null){
                 endTime = System.currentTimeMillis();
                 notifyNoteEnd(lastNote,endTime-startTime);
-                //Log.d(TAG,"ENDNOTE "+lastNote.toString()+" Time elapsed:"+(endTime-startTime)+" ms");
+                m.log(LogLvl.TRACE, TAG,"ENDNOTE "+lastNote.toString()+" Time elapsed:"+(endTime-startTime)+" ms");
                 lastNote = null;
             }
 
@@ -129,12 +131,12 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
                         if(note1 != lastNote){
 
                             if (lastNote!=null){
-                                Log.d(TAG,"lastNote!=null");
+                                //m.log(LogLvl.TRACE, TAG,"lastNote!=null");
                                 endTime = System.currentTimeMillis();
                                 notifyNoteEnd(lastNote,endTime-startTime);
-                               // Log.d(TAG,"ENDNOTE "+lastNote.toString()+" Time elapsed:"+(endTime-startTime)+" ms");
+                                m.log(LogLvl.TRACE, TAG,"ENDNOTE "+lastNote.toString()+" Time elapsed:"+(endTime-startTime)+" ms");
                             }
-                            //Log.d(TAG,"NEWNOTE "+note1.toString());
+                            m.log(LogLvl.TRACE, TAG,"NEWNOTE "+note1.toString());
                             notifyNewNote(note1);
                             startTime = System.currentTimeMillis();
 

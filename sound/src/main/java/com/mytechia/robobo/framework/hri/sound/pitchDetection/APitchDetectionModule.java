@@ -22,6 +22,8 @@
 
 package com.mytechia.robobo.framework.hri.sound.pitchDetection;
 
+import com.mytechia.robobo.framework.RoboboManager;
+
 import java.util.HashMap;
 import java.util.HashSet;
 
@@ -30,6 +32,7 @@ import java.util.HashSet;
  */
 public abstract class APitchDetectionModule implements IPitchDetectionModule {
     public HashSet<IPitchListener> listeners;
+    protected RoboboManager m;
     public APitchDetectionModule(){
         listeners = new HashSet<IPitchListener>();
     }
