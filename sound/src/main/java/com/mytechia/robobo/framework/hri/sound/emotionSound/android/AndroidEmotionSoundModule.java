@@ -48,6 +48,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
     private Context context;
     private String TAG = "AndroidEmotionSound";
     private static Random r = new Random();
+    private RoboboManager m;
 
 
     private static int generateRandom(int min, int max) {
@@ -324,7 +325,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
 
     @Override
     public void startup(RoboboManager manager) {
-
+        m = manager;
         try {
             remoteControlModule = manager.getModuleInstance(IRemoteControlModule.class);
         } catch (ModuleNotFoundException e) {
@@ -335,7 +336,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
             remoteControlModule.registerCommand("SOUND", new ICommandExecutor() {
                 @Override
                 public void executeCommand(Command c, IRemoteControlModule rcmodule) {
-                    Log.d(TAG,c.toString());
+                    m.log(TAG,c.toString());
                     switch (c.getParameters().get("sound")) {
                         case "moan":
                             playSound(MOAN_SOUND);

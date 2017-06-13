@@ -74,7 +74,9 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
 
     @Override
     public void stopDispatcher() {
+
         dispatcher.stop();
+        dispatcherThread.interrupt();
     }
     //endregion
 

@@ -95,6 +95,7 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
         sequence = new LinkedList<>();
+        m = manager;
         timer = new Timer();
     }
 
