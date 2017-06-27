@@ -34,6 +34,9 @@ import com.mytechia.robobo.framework.hri.sound.noteDetection.INoteDetectionModul
 import com.mytechia.robobo.framework.hri.sound.noteGeneration.ANoteGeneratorModule;
 import com.mytechia.robobo.framework.hri.sound.noteGeneration.INoteGeneratorModule;
 import com.mytechia.robobo.framework.hri.sound.noteGeneration.Note;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Command;
+import com.mytechia.robobo.framework.remote_control.remotemodule.ICommandExecutor;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
 import java.util.LinkedList;
 import java.util.NoSuchElementException;
@@ -68,6 +71,18 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
     }
 
+    private void playNoteByIndex(int index, int timems){
+
+        m.log(LogLvl.TRACE, TAG,"Playing note, index: "+index);
+        if (lasttone!=null){
+            lasttone.release();
+        }
+
+        AudioTrack tone = generateTone(indexToFreq(index),timems);
+        tone.play();
+        lasttone = tone;
+    }
+
     @Override
     public void addNoteToSequence(Note note, int timems) {
 
@@ -97,6 +112,13 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
         sequence = new LinkedList<>();
         m = manager;
         timer = new Timer();
+
+        m.getModuleInstance(IRemoteControlModule.class).registerCommand("PLAYNOTE", new ICommandExecutor() {
+            @Override
+            public void executeCommand(Command c, IRemoteControlModule rcmodule) {
+                playNoteByIndex(Integer.parseInt(c.getParameters().get("index"))-57,Integer.parseInt(c.getParameters().get("time")));
+            }
+        });
     }
 
     @Override
@@ -136,6 +158,13 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
     private double noteToFreq(Note note){
         double freq = 220* Math.pow(2,(note.index/12.0));
         m.log(LogLvl.TRACE, TAG,"Index =" +note.index+"Freq: " +freq);
+        return freq;
+
+    }
+
+    private double indexToFreq(int index){
+        double freq = 220* Math.pow(2,(index/12.0));
+        m.log(LogLvl.TRACE, TAG,"Index =" +index+"Freq: " +freq);
         return freq;
 
     }
