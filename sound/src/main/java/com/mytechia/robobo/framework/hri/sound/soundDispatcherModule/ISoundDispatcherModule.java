@@ -24,6 +24,7 @@ package com.mytechia.robobo.framework.hri.sound.soundDispatcherModule;
 
 import com.mytechia.robobo.framework.IModule;
 
+import be.tarsos.dsp.AudioDispatcher;
 import be.tarsos.dsp.AudioProcessor;
 
 
@@ -52,4 +53,6 @@ public interface ISoundDispatcherModule extends IModule {
      * Stops the sound dispatcher
      */
     public void stopDispatcher();
+
+    public AudioDispatcher getDispatcher();
 }

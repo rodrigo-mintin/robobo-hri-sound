@@ -46,7 +46,7 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     private AudioDispatcher dispatcher;
     private Thread dispatcherThread;
 
-    private int samplerate = 22050;
+    private int samplerate = 44100;
 
     private int buffersize = 2048;
 
@@ -78,6 +78,11 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
         dispatcher.stop();
         dispatcherThread.interrupt();
     }
+
+    @Override
+    public AudioDispatcher getDispatcher() {
+        return dispatcher;
+    }
     //endregion
 
     //region IModule Methods
@@ -97,6 +102,7 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
         overlap = Integer.parseInt(properties.getProperty("overlap"));
         m.log(TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(samplerate,buffersize,overlap);
+
     }
 
     @Override

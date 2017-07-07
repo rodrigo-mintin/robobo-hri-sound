@@ -55,8 +55,8 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
     private String TAG = "PitchDetectionModule";
     private boolean previous = false;
 
-    private float samplerate = 44100;
-    private int buffersize = 2048;
+    private float samplerate = 11025;
+    private int buffersize = 1024;
     private int overlap = 0;
 
 
@@ -83,7 +83,7 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
 
         dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
 
-        algo = PitchProcessor.PitchEstimationAlgorithm.YIN;
+        algo = PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
 
 
 
@@ -92,12 +92,12 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
             public void handlePitch(PitchDetectionResult pitchDetectionResult,
                                     AudioEvent audioEvent) {
                 double pitch = pitchDetectionResult.getPitch();
-                //Log.d(TAG,(audioEvent.getTimeStamp() + " " +pitch));
+//                Log.d(TAG,(audioEvent.getTimeStamp() + " " +pitch));
 
                 if (pitch>0){
                     previous = true;
 
-                    notifyPitch(pitch*2);
+                    notifyPitch(pitch/4);
                 }else {
                     if (previous){
                         //Si se deja de detectar mandar un -1 a modo de cierre

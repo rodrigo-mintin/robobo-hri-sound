@@ -51,8 +51,8 @@ public class TestActivity extends AppCompatActivity {
         try {
 
                 dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
-                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
-                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
+//                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
+//                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
                 dispatcherModule.runDispatcher();
 
 
