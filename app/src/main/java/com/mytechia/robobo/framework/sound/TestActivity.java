@@ -1,17 +1,26 @@
 package com.mytechia.robobo.framework.sound;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.emotionSound.IEmotionSoundModule;
-import com.mytechia.robobo.framework.hri.sound.emotionSound.android.AndroidEmotionSoundModule;
+import com.mytechia.robobo.framework.hri.sound.noteDetection.INoteDetectionModule;
+import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchDetectionModule;
+import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
 import com.mytechia.robobo.framework.service.RoboboServiceHelper;
 
 public class TestActivity extends AppCompatActivity {
 
     private IEmotionSoundModule soundModule;
+    private ISoundDispatcherModule dispatcherModule;
+    private IPitchDetectionModule pitchDetectionModule;
+    private INoteDetectionModule noteDetectionModule;
     private RoboboManager manager;
 
     @Override
@@ -20,8 +29,8 @@ public class TestActivity extends AppCompatActivity {
         setContentView(R.layout.activity_test);
         RoboboServiceHelper serviceHelper = new RoboboServiceHelper(this, new RoboboServiceHelper.Listener() {
             @Override
-            public void onRoboboManagerStarted(RoboboManager roboboManaer) {
-                manager = roboboManaer;
+            public void onRoboboManagerStarted(RoboboManager roboboManager) {
+                manager = roboboManager;
                 startapp();
 
 
@@ -40,13 +49,18 @@ public class TestActivity extends AppCompatActivity {
 
     public void startapp(){
         try {
-            soundModule = manager.getModuleInstance(IEmotionSoundModule.class);
+
+                dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
+                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
+                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
+                dispatcherModule.runDispatcher();
+
+
+
         } catch (ModuleNotFoundException e) {
             e.printStackTrace();
         }
 
-        soundModule.playSound(IEmotionSoundModule.PURR_SOUND);
-        soundModule.playSound(IEmotionSoundModule.PURR_SOUND);
 
     }
 }

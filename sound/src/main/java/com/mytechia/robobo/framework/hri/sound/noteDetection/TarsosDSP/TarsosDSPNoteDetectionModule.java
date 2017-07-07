@@ -30,10 +30,12 @@ import android.util.Log;
 import com.mytechia.commons.framework.exception.InternalErrorException;
 import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
+import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.ANoteDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.Note;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchListener;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -73,8 +75,13 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
         }
         minThreshold = Double.parseDouble(properties.getProperty("minThreshold"));
         maxThreshold = Double.parseDouble(properties.getProperty("maxThreshold"));
+        try {
+            remoteControlModule = manager.getModuleInstance(IRemoteControlModule.class);
 
-
+        }catch (ModuleNotFoundException e){
+            remoteControlModule = null;
+            e.printStackTrace();
+        }
         pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
         pitchDetectionModule.suscribe(this);
     }

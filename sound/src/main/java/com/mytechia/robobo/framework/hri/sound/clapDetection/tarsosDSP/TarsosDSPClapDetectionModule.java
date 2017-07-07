@@ -93,6 +93,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
         try {
             remoteModule = manager.getModuleInstance(IRemoteControlModule.class);
         } catch (ModuleNotFoundException e) {
+            remoteModule = null;
             e.printStackTrace();
         }
 
