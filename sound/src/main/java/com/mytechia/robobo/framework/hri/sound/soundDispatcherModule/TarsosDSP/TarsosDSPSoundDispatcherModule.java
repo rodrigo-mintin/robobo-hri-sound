@@ -46,11 +46,13 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     private AudioDispatcher dispatcher;
     private Thread dispatcherThread;
 
-    private int samplerate = 22050;
+    private int samplerate = 44100;
 
     private int buffersize = 2048;
 
     private int overlap = 0;
+
+    private RoboboManager m;
 
     //region SoundDispatcherModule methods
     @Override
@@ -72,7 +74,14 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
 
     @Override
     public void stopDispatcher() {
+
         dispatcher.stop();
+        dispatcherThread.interrupt();
+    }
+
+    @Override
+    public AudioDispatcher getDispatcher() {
+        return dispatcher;
     }
     //endregion
 
@@ -81,7 +90,7 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     public void startup(RoboboManager manager) throws InternalErrorException {
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
-
+        m = manager;
         try {
             InputStream inputStream = assetManager.open("sound.properties");
             properties.load(inputStream);
@@ -91,8 +100,9 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
         samplerate = Integer.parseInt(properties.getProperty("samplerate"));
         buffersize = Integer.parseInt(properties.getProperty("buffersize"));
         overlap = Integer.parseInt(properties.getProperty("overlap"));
-        Log.d(TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
+        m.log(TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
         dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(samplerate,buffersize,overlap);
+
     }
 
     @Override

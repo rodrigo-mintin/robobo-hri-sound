@@ -22,6 +22,8 @@
 
 package com.mytechia.robobo.framework.hri.sound.noteGeneration;
 
+import com.mytechia.robobo.framework.RoboboManager;
+
 import java.util.HashSet;
 
 
@@ -30,6 +32,7 @@ import java.util.HashSet;
  */
 public abstract class ANoteGeneratorModule implements INoteGeneratorModule {
     public HashSet<INotePlayListener> listeners;
+    protected RoboboManager m;
     public ANoteGeneratorModule(){
         listeners = new HashSet<INotePlayListener>();
     }

@@ -22,7 +22,10 @@
 
 package com.mytechia.robobo.framework.hri.sound.noteDetection;
 
+import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchListener;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 
 import java.util.HashSet;
 
@@ -32,7 +35,8 @@ import java.util.HashSet;
 public abstract class ANoteDetectionModule implements INoteDetectionModule {
     private HashSet<INoteListener> listeners;
 
-
+    protected RoboboManager m;
+    protected IRemoteControlModule remoteControlModule;
 
     public ANoteDetectionModule(){
         listeners = new HashSet<INoteListener>();
@@ -53,6 +57,7 @@ public abstract class ANoteDetectionModule implements INoteDetectionModule {
             listener.onNoteDetected(note);
 
         }
+
     }
 
     /**
@@ -75,6 +80,13 @@ public abstract class ANoteDetectionModule implements INoteDetectionModule {
         for(INoteListener listener:listeners){
             listener.onNewNote(note);
 
+        }
+        if (remoteControlModule != null){
+            Status s = new Status("NEWNOTE");
+            s.putContents("name", note.note);
+            s.putContents("index", (note.index + 57) + "");
+            s.putContents("octave", note.octave + "");
+            remoteControlModule.postStatus(s);
         }
     }
 
