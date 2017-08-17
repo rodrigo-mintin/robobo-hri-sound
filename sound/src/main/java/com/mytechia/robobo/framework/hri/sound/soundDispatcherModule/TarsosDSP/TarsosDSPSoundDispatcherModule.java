@@ -69,7 +69,7 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     @Override
     public void runDispatcher() {
         dispatcherThread = new Thread(dispatcher);
-        dispatcherThread.run();
+        dispatcherThread.start();
     }
 
     @Override
