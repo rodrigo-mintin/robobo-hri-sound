@@ -43,7 +43,9 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
 
     private String TAG = "TarsosDispatcherModule";
+
     private AudioDispatcher dispatcher;
+
     private Thread dispatcherThread;
 
     private int samplerate = 44100;
@@ -75,8 +77,12 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     @Override
     public void stopDispatcher() {
 
-        dispatcher.stop();
-        dispatcherThread.interrupt();
+        if((dispatcher!=null) && (!dispatcher.isStopped())) {
+            dispatcher.stop();
+        }
+
+        if(dispatcherThread!=null)
+            dispatcherThread.interrupt();
     }
 
     @Override
