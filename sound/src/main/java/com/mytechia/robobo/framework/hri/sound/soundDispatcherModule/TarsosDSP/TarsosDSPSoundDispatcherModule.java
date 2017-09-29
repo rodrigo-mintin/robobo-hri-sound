@@ -27,9 +27,12 @@ import android.util.Log;
 import com.mytechia.commons.framework.exception.InternalErrorException;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
+import com.mytechia.robobo.framework.power.IPowerModeListener;
+import com.mytechia.robobo.framework.power.PowerMode;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Properties;
 
 import be.tarsos.dsp.AudioDispatcher;
@@ -40,11 +43,13 @@ import be.tarsos.dsp.io.android.AudioDispatcherFactory;
 /**
  * Implementation of the Robobo sound dispatcher module using the TarsosDSP library
  */
-public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
+public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule, IPowerModeListener {
 
     private String TAG = "TarsosDispatcherModule";
 
     private AudioDispatcher dispatcher;
+
+    private ArrayList<AudioProcessor> audioProcessors = new ArrayList<>(5);
 
     private Thread dispatcherThread;
 
@@ -59,30 +64,61 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     //region SoundDispatcherModule methods
     @Override
     public void addProcessor(AudioProcessor processor) {
-        dispatcher.addAudioProcessor(processor);
+        this.audioProcessors.add(processor);
+        if (dispatcher != null) {
+            dispatcher.addAudioProcessor(processor);
+        }
 
     }
 
     @Override
     public void removeProcessor(AudioProcessor processor) {
-        dispatcher.removeAudioProcessor(processor);
+        this.audioProcessors.remove(processor);
+        if (dispatcher != null) {
+            dispatcher.removeAudioProcessor(processor);
+        }
     }
 
+    private void addProcessors() {
+        for(AudioProcessor ap : this.audioProcessors) {
+            this.dispatcher.addAudioProcessor(ap);
+        }
+    }
+
+
+    /** Creates a new dispatcher and starts the capturing thread
+     */
     @Override
     public void runDispatcher() {
+
+        if (dispatcher != null) {
+            stopDispatcher();
+        }
+
+        if (dispatcher == null) {
+            dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(samplerate,buffersize,overlap);
+            addProcessors();
+        }
+
         dispatcherThread = new Thread(dispatcher);
         dispatcherThread.start();
+
     }
 
+    /**
+     * Stops the dispatcher and removes the capturing interrupts thread.
+     */
     @Override
     public void stopDispatcher() {
 
         if((dispatcher!=null) && (!dispatcher.isStopped())) {
             dispatcher.stop();
+            dispatcher = null;
         }
 
-        if(dispatcherThread!=null)
+        if(dispatcherThread!=null) {
             dispatcherThread.interrupt();
+        }
     }
 
     @Override
@@ -94,6 +130,7 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
     //region IModule Methods
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
+        manager.subscribeToPowerModeChanges(this);
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
         m = manager;
@@ -107,8 +144,6 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
         buffersize = Integer.parseInt(properties.getProperty("buffersize"));
         overlap = Integer.parseInt(properties.getProperty("overlap"));
         m.log(TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
-        dispatcher = AudioDispatcherFactory.fromDefaultMicrophone(samplerate,buffersize,overlap);
-
     }
 
     @Override
@@ -126,4 +161,23 @@ public class TarsosDSPSoundDispatcherModule implements ISoundDispatcherModule {
         return "v0.1";
     }
     //endregion
+
+
+    /** Enables or disables the audio processing depending on the power mode
+     * selected by the robot.
+     *
+     * PowerMode.LOWPOWER - processing disabled
+     *
+     * @param newMode new power mode
+     */
+    @Override
+    public void onPowerModeChange(PowerMode newMode) {
+        if (newMode == PowerMode.LOWPOWER) {
+            stopDispatcher();
+        }
+        else if (dispatcher == null || dispatcher.isStopped()) {
+            runDispatcher();
+        }
+    }
+
 }

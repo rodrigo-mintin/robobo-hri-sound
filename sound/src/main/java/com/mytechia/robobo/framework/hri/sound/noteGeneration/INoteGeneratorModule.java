@@ -27,7 +27,17 @@ import com.mytechia.robobo.framework.IModule;
 
 
 public interface INoteGeneratorModule extends IModule {
+
+    /** Subscribes the listener to new note detection events
+     *
+     * @param listener the listener to receive new note detection events
+     */
     void suscribe(INotePlayListener listener);
+
+    /** Unsubscribes the listener from note detection events
+     *
+     * @param listener the listener to unsubscribe
+     */
     void unsuscribe(INotePlayListener listener);
 
     /**

@@ -38,7 +38,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(String errorMsg) {
+            public void onError(Exception errorMsg) {
 
             }
         });
