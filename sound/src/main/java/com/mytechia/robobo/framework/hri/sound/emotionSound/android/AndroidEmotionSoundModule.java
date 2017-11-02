@@ -333,7 +333,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
         }
 
         if (remoteControlModule!=null){
-            remoteControlModule.registerCommand("SOUND", new ICommandExecutor() {
+            remoteControlModule.registerCommand("PLAY-SOUND", new ICommandExecutor() {
                 @Override
                 public void executeCommand(Command c, IRemoteControlModule rcmodule) {
                     m.log(TAG,c.toString());

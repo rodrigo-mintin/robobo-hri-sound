@@ -29,7 +29,11 @@ import be.tarsos.dsp.AudioProcessor;
 
 
 /**
- * Interface of the SoundDispatcher module
+ * A sound dispatcher module is in charge of capturing audio and dispatching
+ * it to all the modules that require audio input.
+ *
+ * Any sound dispatcher module must implement this interface.
+ *
  */
 public interface ISoundDispatcherModule extends IModule {
     /**

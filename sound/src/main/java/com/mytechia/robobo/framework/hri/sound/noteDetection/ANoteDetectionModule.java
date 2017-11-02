@@ -82,7 +82,7 @@ public abstract class ANoteDetectionModule implements INoteDetectionModule {
 
         }
         if (remoteControlModule != null){
-            Status s = new Status("NEWNOTE");
+            Status s = new Status("NOTE");
             s.putContents("name", note.note);
             s.putContents("index", (note.index + 57) + "");
             s.putContents("octave", note.octave + "");

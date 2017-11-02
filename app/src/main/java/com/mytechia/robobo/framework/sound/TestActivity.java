@@ -6,6 +6,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
@@ -37,7 +38,7 @@ public class TestActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onError(String errorMsg) {
+            public void onError(Exception errorMsg) {
 
             }
         });
@@ -51,9 +52,10 @@ public class TestActivity extends AppCompatActivity {
         try {
 
                 dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
-//                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
+                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
 //                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
                 dispatcherModule.runDispatcher();
+            Log.d("TEST","TEST");
 
 
 
