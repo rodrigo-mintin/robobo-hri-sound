@@ -117,7 +117,7 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
         m = manager;
         timer = new Timer();
 
-        m.getModuleInstance(IRemoteControlModule.class).registerCommand("PLAYNOTE", new ICommandExecutor() {
+        m.getModuleInstance(IRemoteControlModule.class).registerCommand("PLAY-NOTE", new ICommandExecutor() {
             @Override
             public void executeCommand(Command c, IRemoteControlModule rcmodule) {
                 playNoteByIndex(Integer.parseInt(c.getParameters().get("index"))-57,Integer.parseInt(c.getParameters().get("time")));
