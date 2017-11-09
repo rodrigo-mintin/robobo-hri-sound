@@ -27,9 +27,15 @@ import com.mytechia.robobo.framework.IModule;
 
 
 public interface IPitchDetectionModule extends IModule {
-
+    /**
+     * Suscribes a listener to the notifications feed
+     * @param listener
+     */
     public void suscribe(IPitchListener listener);
-
+    /**
+     * Unsuscribes a listener of the notifications feed
+     * @param listener
+     */
     public void unsuscribe(IPitchListener listener);
     
 }

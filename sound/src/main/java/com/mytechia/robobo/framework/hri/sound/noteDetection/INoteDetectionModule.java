@@ -25,8 +25,15 @@ import com.mytechia.robobo.framework.IModule;
 
 
 public interface INoteDetectionModule extends IModule{
+    /**
+     * Suscribes a listener to the notifications feed
+     * @param listener
+     */
     public void suscribe(INoteListener listener);
-
+    /**
+     * Unsuscribes a listener of the notifications feed
+     * @param listener
+     */
     public void unsuscribe(INoteListener listener);
 
 

@@ -58,5 +58,9 @@ public interface ISoundDispatcherModule extends IModule {
      */
     public void stopDispatcher();
 
+    /**
+     * Returns the dispatcher object
+     * @return the dispatcher
+     */
     public AudioDispatcher getDispatcher();
 }
