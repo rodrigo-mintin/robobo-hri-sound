@@ -199,6 +199,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
 
                     mediaPlayer = MediaPlayer.create(context, R.raw.likes01_r01);
                     mediaPlayer.start();
+                    break;
 
             case MOAN_SOUND:
                 switch (generateRandom(0,3)){
