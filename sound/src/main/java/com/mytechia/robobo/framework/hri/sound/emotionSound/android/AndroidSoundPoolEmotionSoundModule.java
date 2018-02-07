@@ -65,6 +65,22 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
         // adding min to it will finally create the number in the range between min and max
         return r.nextInt(max-min+1) + min;
     }
+    
+    private void playSound(int resId,int id,int cat_id){
+        if (manageQueue(id+cat_id)){
+            int soundId = soundPool.load(context,resId,1);
+
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    soundPool.play(sampleId,0.5f,0.5f,1,0,1);
+                }
+            });
+            soundMap.put(id+cat_id,soundId);
+        }else {
+            soundPool.play(soundMap.get(id + cat_id), 0.5f, 0.5f, 1, 0, 1);
+        }
+    }
 
 
     private boolean manageQueue(Integer sound){
@@ -88,7 +104,7 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
     }
 
     @Override
-    public void playSound(int sound) {
+    public void playSound(final int sound) {
         int soundId = 0;
         int id = generateRandom(0,2);
         int cat_id = 0;
@@ -100,25 +116,13 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 0;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.angry01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                        playSound(R.raw.angry01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.angry02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                        playSound(R.raw.angry02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.angry03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                        playSound(R.raw.angry03_r01,id,cat_id);
                         break;
 
                 }
@@ -130,26 +134,13 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 100;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.approve01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                        playSound(R.raw.approve01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.approve02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                        playSound(R.raw.approve02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.approve03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
-
+                        playSound(R.raw.approve03_r01,id,cat_id);
                         break;
 
                 }
@@ -161,51 +152,25 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 200;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
-
+                        playSound(R.raw.disapprove01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                            playSound(R.raw.disapprove02_r01,id,cat_id);
 
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                            playSound(R.raw.disapprove03_r01,id,cat_id);
 
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove04_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.disapprove04_r01,id,cat_id);
 
                         break;
                     case 4:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove05_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
-
+                         playSound(R.raw.disapprove05_r01,id,cat_id);
                         break;
                     case 5:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.disapprove06_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.disapprove06_r01,id,cat_id);
 
                         break;
                 }
@@ -217,18 +182,10 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 300;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.discomfort01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.discomfort01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.discomfort02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.discomfort02_r01,id,cat_id);
                         break;
                 }
 
@@ -239,18 +196,10 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 400;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.doubtful01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.doubtful01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.doubtful02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.doubtful02_r01,id,cat_id);
                         break;
                 }
 
@@ -261,60 +210,28 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 500;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh03_r01,id,cat_id);
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh04_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh04_r01,id,cat_id);
                         break;
                     case 4:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh05_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh05_r01,id,cat_id);
                         break;
                     case 5:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh06_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh06_r01,id,cat_id);
                         break;
                     case 6:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh07_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh07_r01,id,cat_id);
                         break;
                     case 7:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.laugh08_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.laugh08_r01,id,cat_id);
                         break;
                 }
 
@@ -323,11 +240,7 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
             case LIKES_SOUND:
                 id = 0;
                 cat_id = 600;
-                if (manageQueue(id+cat_id)){
-                    soundId = soundPool.load(context,R.raw.likes01_r01,1);
-                    soundMap.put(id+cat_id,soundId);
-                }
-                soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                 playSound(R.raw.likes01_r01,id,cat_id);
                 break;
             //07
             case MOAN_SOUND:
@@ -335,32 +248,16 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 700;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.moan01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.moan01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.moan02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.moan02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.moan03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.moan03_r01,id,cat_id);
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.moan04_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.moan04_r01,id,cat_id);
                         break;
                 }
 
@@ -371,53 +268,25 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 800;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble03_r01,id,cat_id);
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble04_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble04_r01,id,cat_id);
                         break;
                     case 4:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble05_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble05_r01,id,cat_id);
                         break;
                     case 5:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble06_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble06_r01,id,cat_id);
                         break;
                     case 6:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.mumble07_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.mumble07_r01,id,cat_id);
                         break;
 
                 }
@@ -429,32 +298,16 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 900;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.ouch01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.ouch01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.ouch02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.ouch02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.ouch03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.ouch03_r01,id,cat_id);
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.ouch04_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.ouch04_r01,id,cat_id);
                         break;
                 }
 
@@ -465,25 +318,13 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 1000;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.purring01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.purring01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.purring02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.purring02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.purring03_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.purring03_r01,id,cat_id);
                         break;
 
                 }
@@ -494,32 +335,16 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
                 cat_id = 1100;
                 switch (id){
                     case 0:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.thinking_01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.thinking_01_r01,id,cat_id);
                         break;
                     case 1:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.thinking_02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.thinking_02_r01,id,cat_id);
                         break;
                     case 2:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.thinking_ok01_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.thinking_ok01_r01,id,cat_id);
                         break;
                     case 3:
-                        if (manageQueue(id+cat_id)){
-                            soundId = soundPool.load(context,R.raw.thinking_ok02_r01,1);
-                            soundMap.put(id+cat_id,soundId);
-                        }
-                        soundPool.play(soundMap.get(id+cat_id),0.5f,0.5f,1,0,1);
+                         playSound(R.raw.thinking_ok02_r01,id,cat_id);
                         break;
 
                 }
