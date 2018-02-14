@@ -73,12 +73,12 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
             soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
                 @Override
                 public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    soundPool.play(sampleId,0.5f,0.5f,1,0,1);
+                    soundPool.play(sampleId,1f,1f,1,0,1);
                 }
             });
             soundMap.put(id+cat_id,soundId);
         }else {
-            soundPool.play(soundMap.get(id + cat_id), 0.5f, 0.5f, 1, 0, 1);
+            soundPool.play(soundMap.get(id + cat_id), 1f, 1f, 1, 0, 1);
         }
     }
 
