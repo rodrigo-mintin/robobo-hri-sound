@@ -11,6 +11,7 @@ import android.util.Log;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.emotionSound.IEmotionSoundModule;
+import com.mytechia.robobo.framework.hri.sound.noiseMetering.INoiseMeterModule;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.INoteDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
@@ -22,6 +23,7 @@ public class TestActivity extends AppCompatActivity {
     private ISoundDispatcherModule dispatcherModule;
     private IPitchDetectionModule pitchDetectionModule;
     private INoteDetectionModule noteDetectionModule;
+    private INoiseMeterModule noiseMeterModule;
     private RoboboManager manager;
 
     @Override
@@ -54,6 +56,7 @@ public class TestActivity extends AppCompatActivity {
                 dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
                 pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
 //                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
+            noiseMeterModule = manager.getModuleInstance(INoiseMeterModule.class);
                 dispatcherModule.runDispatcher();
             Log.d("TEST","TEST");
 

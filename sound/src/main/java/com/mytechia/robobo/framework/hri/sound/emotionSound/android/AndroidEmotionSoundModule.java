@@ -52,7 +52,7 @@ public class AndroidEmotionSoundModule implements IEmotionSoundModule {
 
 
     private static int generateRandom(int min, int max) {
-        // max - min + 1 will create a number in the range of min and max, including max. If you don´t want to include it, just delete the +1.
+        // max - min + 1 will create a number in the range of min and max, including max. If you dont want to include it, just delete the +1.
         // adding min to it will finally create the number in the range between min and max
         return r.nextInt(max-min+1) + min;
     }
