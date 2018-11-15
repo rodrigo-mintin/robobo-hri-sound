@@ -77,6 +77,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
         } catch (ModuleNotFoundException e) {
             e.printStackTrace();
         }
+        // Load properties from file
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
 
@@ -86,10 +87,13 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         samplerate = Integer.parseInt(properties.getProperty("samplerate"));
         buffersize = Integer.parseInt(properties.getProperty("buffersize"));
         sensitivity = Integer.parseInt(properties.getProperty("clap_sensitivity"));
         threshold = Integer.parseInt(properties.getProperty("clap_threshold"));
+
+        // Load remote module
         try {
             remoteModule = manager.getModuleInstance(IRemoteControlModule.class);
         } catch (ModuleNotFoundException e) {
@@ -101,7 +105,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
 
 
 
-
+        // Create the clap detector audio processor
         mPercussionDetector = new PercussionOnsetDetector(samplerate, buffersize,
                 new OnsetHandler() {
 
@@ -112,7 +116,7 @@ public class TarsosDSPClapDetectionModule extends AClapDetectionModule {
                     }
                 }, sensitivity, threshold);
 
-
+        // Add processor to the dispatcher module
         dispatcherModule.addProcessor(mPercussionDetector);
     }
 

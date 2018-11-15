@@ -41,6 +41,7 @@ public abstract class AClapDetectionModule implements IClapDetectionModule {
     protected RoboboManager m;
 
     public AClapDetectionModule(){
+        // Initialize listener list
         listeners = new HashSet<IClapListener>();
     }
 
@@ -61,9 +62,12 @@ public abstract class AClapDetectionModule implements IClapDetectionModule {
      * @param time Moment of the detection
      */
     protected void notifyClap(double time){
+        // Notify all the listeners of the event
         for(IClapListener listener:listeners){
             listener.onClap(time);
         }
+
+        // Send status via remote module
         if (remoteModule!=null) {
             Status status = new Status("CLAP");
             remoteModule.postStatus(status);

@@ -24,7 +24,17 @@ package com.mytechia.robobo.framework.hri.sound.noiseMetering;
 
 import com.mytechia.robobo.framework.IModule;
 
+/* Interface of the noise detection module */
 public interface INoiseMeterModule extends IModule {
 
-
+    /**
+     * Subscribe a listener to the noise level data feed
+     * @param listener The listener to be subscribed
+     */
+    public void suscribe(INoiseListener listener);
+    /**
+     * Unsubscribe a listener from the noise level data feed
+     * @param listener The listener to be unsubscribed
+     */
+    public void unsuscribe(INoiseListener listener);
 }

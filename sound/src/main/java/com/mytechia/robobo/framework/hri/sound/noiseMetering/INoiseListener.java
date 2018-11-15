@@ -1,14 +1,16 @@
 package com.mytechia.robobo.framework.hri.sound.noiseMetering;
 
-/**
- * Created by luis on 12/11/2018.
- */
 
+/**
+ * Interface to be notified on noise level data
+ */
 public interface INoiseListener {
 
-    void  onNoise(double spl);
+    /**
+     * Called on noise level data available
+     * @param spl Sound pressure level
+     */
+    public void  onNoise(double spl);
 
-    public void suscribe(INoiseListener listener);
 
-    public void unsuscribe(INoiseListener listener);
 }

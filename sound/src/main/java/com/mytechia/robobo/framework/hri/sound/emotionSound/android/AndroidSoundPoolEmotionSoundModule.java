@@ -65,7 +65,13 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
         // adding min to it will finally create the number in the range between min and max
         return r.nextInt(max-min+1) + min;
     }
-    
+
+    /**
+     * Plays a sound
+     * @param resId Sound Id as in resources folder
+     * @param id Id of the sound
+     * @param cat_id Id of the category
+     */
     private void playSound(int resId,int id,int cat_id){
         if (manageQueue(id+cat_id)){
             int soundId = soundPool.load(context,resId,1);
@@ -82,7 +88,11 @@ public class AndroidSoundPoolEmotionSoundModule implements IEmotionSoundModule {
         }
     }
 
-
+    /**
+     * Manages the load and unload of sounds
+     * @param sound The sound to be added to the queue
+     * @return False if the sound is already on the queue
+     */
     private boolean manageQueue(Integer sound){
         if (loadedSounds.contains(sound)){
             loadedSounds.remove(sound);

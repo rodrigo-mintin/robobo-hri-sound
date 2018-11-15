@@ -22,7 +22,9 @@
 package com.mytechia.robobo.framework.hri.sound.noteDetection;
 
 
-
+/**
+ * Enum representing the diferent notes
+ */
 public enum Note {
     C3(3,-21,"C"),
     Cs3(3,-20,"Cs"),

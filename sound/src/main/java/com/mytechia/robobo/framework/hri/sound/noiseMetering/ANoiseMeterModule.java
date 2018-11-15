@@ -9,7 +9,7 @@ import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 import java.util.HashSet;
 
 /**
- * Created by luis on 12/11/2018.
+ * Abstract class that manages listeners and posting status
  */
 
 public abstract class ANoiseMeterModule implements INoiseMeterModule, IFrequencyModeListener, IPowerModeListener {

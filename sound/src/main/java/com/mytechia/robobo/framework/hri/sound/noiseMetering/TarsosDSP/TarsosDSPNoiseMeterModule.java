@@ -44,7 +44,9 @@ import be.tarsos.dsp.AudioEvent;
 import be.tarsos.dsp.Oscilloscope;
 import be.tarsos.dsp.SilenceDetector;
 
-
+/**
+ * Implementation of the noise level measuring module
+ */
 public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
     //region VAR
 
@@ -73,6 +75,7 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
         Properties properties = new Properties();
         AssetManager assetManager = m.getApplicationContext().getAssets();
 
+        // Load properties from the prop file
         try {
             InputStream inputStream = assetManager.open("sound.properties");
             properties.load(inputStream);
@@ -84,6 +87,7 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
         overlap = Integer.parseInt(properties.getProperty("overlap"));
         m.log( TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
 
+        // Get instances pf teh remote and sound dispatcher modules
         try {
             remoteControlModule = manager.getModuleInstance(IRemoteControlModule.class);
             dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
@@ -92,11 +96,13 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
             e.printStackTrace();
         }
 
+        // Create the silence detector
         final SilenceDetector sd = new SilenceDetector(0, false);
         silenceDetector = sd;
+        // Add the processor to the audio processing pipeline
         dispatcherModule.addProcessor(sd);
 
-
+        // Schedule a periodic check on the noise level and notify the listeners on the last value
         t = new Timer();
         TimerTask task = new TimerTask() {
             @Override
@@ -113,9 +119,12 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
 
     @Override
     public void shutdown() throws InternalErrorException {
+        // Cancel the timer
         t.cancel();
         t.purge();
+        // Remove the processor from the pipeline
         dispatcherModule.removeProcessor(silenceDetector);
+        silenceDetector.processingFinished();
     }
 
     @Override
@@ -150,6 +159,10 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
                     }
     }
 
+    /**
+     * Change the period of the sensor data
+     * @param period Time between checks in milliseconds
+     */
     private void setMaxRemoteNotificationPeriod(long period){
         t.cancel();
         t.purge();
@@ -158,6 +171,7 @@ public class TarsosDSPNoiseMeterModule extends ANoiseMeterModule {
 
     @Override
     public void onPowerModeChange(PowerMode newMode) {
+        // If in low power mode, stop checking the noise level, resume on change to normal
         switch (newMode){
             case NORMAL:
                 t.cancel();
