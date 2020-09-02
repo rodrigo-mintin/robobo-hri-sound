@@ -78,6 +78,12 @@ public int index;
 public int octave;
     public String note;
 
+    /**
+     * Enumerate representing a note
+     * @param octave the octave
+     * @param index internal index used by note module
+     * @param note printable note name
+     */
 Note(int octave, int index, String note){
     this.octave = octave;
     this.index = index;

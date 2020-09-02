@@ -75,6 +75,11 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
     }
 
+    /**
+     * Plays a note
+     * @param index Note index
+     * @param timems Time in milliseconds
+     */
     private void playNoteByIndex(int index, int timems){
 
         m.log(LogLvl.TRACE, TAG,"Playing note, index: "+index);
@@ -166,14 +171,22 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
     }
 
-
+    /**
+     * Converts a note to its base frequency
+     * @param note The note to be converted
+     * @return frequency in hertzs
+     */
     private double noteToFreq(Note note){
         double freq = 220* Math.pow(2,(note.index/12.0));
         m.log(LogLvl.TRACE, TAG,"Index =" +note.index+"Freq: " +freq);
         return freq;
 
     }
-
+    /**
+     * Converts a note index to its base frequency
+     * @param index The note index to be converted
+     * @return frequency in hertzs
+     */
     private double indexToFreq(int index){
         double freq = 220* Math.pow(2,(index/12.0));
         m.log(LogLvl.TRACE, TAG,"Index =" +index+"Freq: " +freq);
@@ -184,6 +197,9 @@ public class AndroidNoteGenerationModule extends ANoteGeneratorModule {
 
     //region SequenceManager
 
+    /**
+     * Private class represeting the notes on a sequency
+     */
     private class SeqNote{
         Note note;
         int timems;

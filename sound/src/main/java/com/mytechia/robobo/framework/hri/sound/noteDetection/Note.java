@@ -22,7 +22,9 @@
 package com.mytechia.robobo.framework.hri.sound.noteDetection;
 
 
-
+/**
+ * Enum representing the diferent notes
+ */
 public enum Note {
     C3(3,-21,"C"),
     Cs3(3,-20,"Cs"),
@@ -78,7 +80,13 @@ public int index;
 public int octave;
     public String note;
 
-Note(int octave,int index,String note){
+    /**
+     * Enumerate representing a note
+     * @param octave the octave
+     * @param index internal index used by note module
+     * @param note printable note name
+     */
+    Note(int octave,int index,String note){
     this.octave = octave;
     this.index = index;
     this.note = note;

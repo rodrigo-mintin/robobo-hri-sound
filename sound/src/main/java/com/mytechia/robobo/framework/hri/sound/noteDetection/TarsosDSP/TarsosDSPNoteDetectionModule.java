@@ -64,6 +64,8 @@ public class TarsosDSPNoteDetectionModule extends ANoteDetectionModule implement
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
         m = manager;
+
+        // Load properties
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
 

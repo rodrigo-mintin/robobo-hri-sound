@@ -1,7 +1,7 @@
 /*******************************************************************************
  *
- *   Copyright 2016 Mytech Ingenieria Aplicada <http://www.mytechia.com>
- *   Copyright 2016 Luis Llamas <luis.llamas@mytechia.com>
+ *   Copyright 2018 Mytech Ingenieria Aplicada <http://www.mytechia.com>
+ *   Copyright 2018 Luis Llamas <luis.llamas@mytechia.com>
  *
  *   This file is part of Robobo HRI Modules.
  *
@@ -20,22 +20,21 @@
  *
  ******************************************************************************/
 
-package com.mytechia.robobo.framework.hri.sound.pitchDetection;
+package com.mytechia.robobo.framework.hri.sound.noiseMetering;
 
 import com.mytechia.robobo.framework.IModule;
 
+/* Interface of the noise detection module */
+public interface INoiseMeterModule extends IModule {
 
-
-public interface IPitchDetectionModule extends IModule {
     /**
-     * Suscribes a listener to the notifications feed
-     * @param listener
+     * Subscribe a listener to the noise level data feed
+     * @param listener The listener to be subscribed
      */
-    public void suscribe(IPitchListener listener);
+    public void suscribe(INoiseListener listener);
     /**
-     * Unsuscribes a listener of the notifications feed
-     * @param listener
+     * Unsubscribe a listener from the noise level data feed
+     * @param listener The listener to be unsubscribed
      */
-    public void unsuscribe(IPitchListener listener);
-    
+    public void unsuscribe(INoiseListener listener);
 }

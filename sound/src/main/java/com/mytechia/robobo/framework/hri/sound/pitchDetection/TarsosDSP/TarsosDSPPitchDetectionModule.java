@@ -66,7 +66,7 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
         m = manager;
-
+        // Load propreties from file
         Properties properties = new Properties();
         AssetManager assetManager = manager.getApplicationContext().getAssets();
 
@@ -81,12 +81,14 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
         overlap = Integer.parseInt(properties.getProperty("overlap"));
         m.log( TAG,"Properties loaded: "+samplerate+" "+buffersize+" "+overlap);
 
+        // Get instance of the sound dispatcher module
         dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
 
+        // Definition of the pitch estimation algorithm
         algo = PitchProcessor.PitchEstimationAlgorithm.FFT_YIN;
 
 
-
+        // Listener suscribed to detection results
         PitchDetectionHandler handler = new PitchDetectionHandler() {
             @Override
             public void handlePitch(PitchDetectionResult pitchDetectionResult,
@@ -108,8 +110,10 @@ public class TarsosDSPPitchDetectionModule extends APitchDetectionModule{
             }
         };
 
+        // Create the pitch detection audio processor
         pitchProcessor =new PitchProcessor(algo, samplerate, buffersize,handler);
 
+        // Add the processor to the sound processing pipeline
         dispatcherModule.addProcessor(pitchProcessor);
 
 

@@ -70,6 +70,15 @@ public abstract class ANoteDetectionModule implements INoteDetectionModule {
             listener.onNoteEnd(note, time);
 
         }
+
+        if (remoteControlModule != null){
+            Status s = new Status("NOTE");
+            s.putContents("name", note.note);
+            s.putContents("index", (note.index + 57) + "");
+            s.putContents("octave", note.octave + "");
+            s.putContents("duration", time + "");
+            remoteControlModule.postStatus(s);
+        }
     }
 
     /**
@@ -81,13 +90,7 @@ public abstract class ANoteDetectionModule implements INoteDetectionModule {
             listener.onNewNote(note);
 
         }
-        if (remoteControlModule != null){
-            Status s = new Status("NOTE");
-            s.putContents("name", note.note);
-            s.putContents("index", (note.index + 57) + "");
-            s.putContents("octave", note.octave + "");
-            remoteControlModule.postStatus(s);
-        }
+
     }
 
     /**
