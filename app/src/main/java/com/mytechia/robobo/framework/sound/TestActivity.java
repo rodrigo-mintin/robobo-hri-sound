@@ -15,15 +15,16 @@ import com.mytechia.robobo.framework.hri.sound.noiseMetering.INoiseMeterModule;
 import com.mytechia.robobo.framework.hri.sound.noteDetection.INoteDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.pitchDetection.IPitchDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
+import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechDetectionModule;
 import com.mytechia.robobo.framework.service.RoboboServiceHelper;
 
 public class TestActivity extends AppCompatActivity {
 
-    private IEmotionSoundModule soundModule;
-    private ISoundDispatcherModule dispatcherModule;
-    private IPitchDetectionModule pitchDetectionModule;
-    private INoteDetectionModule noteDetectionModule;
-    private INoiseMeterModule noiseMeterModule;
+    //private IEmotionSoundModule soundModule;
+    //private ISoundDispatcherModule dispatcherModule;
+    private ISpeechDetectionModule speechDetectionModule;
+    //private INoteDetectionModule noteDetectionModule;
+    //private INoiseMeterModule noiseMeterModule;
     private RoboboManager manager;
 
     @Override
@@ -53,11 +54,13 @@ public class TestActivity extends AppCompatActivity {
     public void startapp(){
         try {
 
-                dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
-                pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
+                //dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
+                //pitchDetectionModule = manager.getModuleInstance(IPitchDetectionModule.class);
+                speechDetectionModule = manager.getModuleInstance(ISpeechDetectionModule.class);
 //                noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
-            noiseMeterModule = manager.getModuleInstance(INoiseMeterModule.class);
-                dispatcherModule.runDispatcher();
+
+            //noiseMeterModule = manager.getModuleInstance(INoiseMeterModule.class);
+                //dispatcherModule.runDispatcher();
             Log.d("TEST","TEST");
 
 
