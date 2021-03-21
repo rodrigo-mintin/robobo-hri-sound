@@ -29,4 +29,10 @@ public interface ISpeechDetectionModule extends IModule {
      * @param listener
      */
     public void unsuscribeAll(ISpeechListener listener);
+
+    /**
+     * Returns whether a given word is recognized by voice recognition model or not
+     * @param word
+     */
+    public boolean isWordInModel(String word);
 }

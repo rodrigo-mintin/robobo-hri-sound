@@ -10,8 +10,54 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.mytechia.robobo.framework.sound.TestActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/detectorTextView"
+                android:layout_width="171dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <Button
+                android:id="@+id/detectorSetButton"
+                android:layout_width="wrap_content"
+                android:layout_height="66dp"
+                android:layout_weight="1"
+                android:onClick="onAddToPhrasesBtn"
+                android:text="Add Word" />
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="onResetBtn"
+                android:text="Reset" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="bottom"
+            android:scrollbars="vertical"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <Button
+            android:id="@+id/detectorAnyButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Listen to Any" />
+
+    </LinearLayout>
+
 </RelativeLayout>

@@ -1,35 +1,39 @@
-package com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk;
+package com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
 
 import android.content.res.AssetManager;
-import android.net.Uri;
 
 import com.mytechia.commons.framework.exception.InternalErrorException;
 import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
+import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ASpeechDetectionModule;
+import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechListener;
-import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+import com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.VoskSpeechDetectionModule;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.kaldi.*;
+import org.kaldi.Assets;
+import org.kaldi.KaldiRecognizer;
+import org.kaldi.Model;
+import org.kaldi.RecognitionListener;
+import org.kaldi.SpeechService;
 
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-/**
- * Implementation of the Robobo speech detection module using the Vosk-Android library
- */
-public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements RecognitionListener {
-    private Model model;
-    private SpeechService speechService;
-    private KaldiRecognizer recognizer;
-    private float samplerate = 16000.f;
+public class TarsosDSPVoskSpeechDetectionModule extends ASpeechDetectionModule implements RecognitionListener {
 
-    private String TAG = "SpeechModule";
+    private String TAG = "TarsosDSPSpeechModule";
+
+    private Model model;
+    private TarsosDSPSpeechService speechService;
+    private KaldiRecognizer recognizer;
+    private ISoundDispatcherModule dispatcherModule;
+    private float samplerate = 16000.f;
 
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
@@ -55,6 +59,8 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
 
         try{
 
+            dispatcherModule = manager.getModuleInstance(ISoundDispatcherModule.class);
+
             ///
             Assets assets = new Assets(m.getApplicationContext());
             File assetDir = assets.syncAssets();
@@ -73,15 +79,7 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
 
         } catch(IOException e) {
             e.printStackTrace();
-        }
-    }
-
-    private void soundServiceStartup(){
-        try {
-            speechService = new SpeechService(recognizer, samplerate);
-            speechService.addListener(this);
-            speechService.startListening();
-        } catch (IOException e) {
+        } catch(ModuleNotFoundException e) {
             e.printStackTrace();
         }
     }
@@ -96,7 +94,7 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
 
     @Override
     public String getModuleInfo() {
-        return "Speech detection module";
+        return "Tarsus DSP Speech detection module";
     }
 
     @Override
@@ -104,9 +102,25 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
         return "v0.1";
     }
 
+
+    private void soundServiceStartup(){
+        try {
+            speechService = new TarsosDSPSpeechService(recognizer, samplerate, dispatcherModule);
+            speechService.addListener(this);
+            speechService.startListening();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public boolean isWordInModel(String word) {
+        return (model.vosk_model_find_word(word) > 0);
+    }
+
     @Override
     public void onPartialResult(String s) {
-        //processResult(s);
+
     }
 
     @Override
@@ -142,6 +156,7 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
         }
     }
 
+
     @Override
     public void onError(Exception e) {
         m.log(LogLvl.ERROR,TAG,e.getMessage());
@@ -154,10 +169,6 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
         m.log(LogLvl.TRACE, TAG, "Vosk Recognizer timed out. Restarting. Time: " + System.currentTimeMillis());
         speechService.cancel();
         soundServiceStartup();
-    }
 
-    @Override
-    public boolean isWordInModel(String word) {
-        return (model.vosk_model_find_word(word) > 0);
     }
 }
