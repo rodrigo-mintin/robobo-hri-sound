@@ -2,7 +2,9 @@ package com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
 
 import android.os.Handler;
 import android.os.Looper;
+import android.util.Log;
 
+import com.mytechia.robobo.framework.LogLvl;
 import com.mytechia.robobo.framework.hri.sound.soundDispatcherModule.ISoundDispatcherModule;
 
 import org.kaldi.KaldiRecognizer;
@@ -142,6 +144,7 @@ public class TarsosDSPSpeechService {
             return false;
 
         dispatcher.removeProcessor(processor);
+        processor.processingFinished();
         processor = null;
         return true;
     }
@@ -220,6 +223,7 @@ public class TarsosDSPSpeechService {
 
         @Override
         public boolean process(AudioEvent audioEvent) {
+
             fbuff = converter.toByteArray(audioEvent.getFloatBuffer(), fbuff);
 
             // Vosk requires buffers in short format
@@ -241,7 +245,7 @@ public class TarsosDSPSpeechService {
 
         @Override
         public void processingFinished() {
-            //mainHandler.removeCallbacksAndMessages(null);
+            mainHandler.removeCallbacksAndMessages(null);
         }
     }
 
