@@ -70,7 +70,7 @@ public class TestActivity extends AppCompatActivity implements ISpeechListener {
             //noteDetectionModule = manager.getModuleInstance(INoteDetectionModule.class);
 
             //noiseMeterModule = manager.getModuleInstance(INoiseMeterModule.class);
-            //dispatcherModule.runDispatcher();
+            dispatcherModule.runDispatcher();
             phraseInput = (EditText) findViewById(R.id.detectorTextView);
             textView = (TextView) findViewById(R.id.textView);;
             Log.d("TEST","TEST");
