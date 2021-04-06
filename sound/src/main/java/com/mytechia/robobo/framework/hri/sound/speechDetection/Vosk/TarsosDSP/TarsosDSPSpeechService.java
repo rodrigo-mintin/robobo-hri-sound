@@ -1,4 +1,4 @@
-package com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
+aspackage com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
 
 import android.os.Handler;
 import android.os.Looper;
@@ -14,6 +14,7 @@ import org.kaldi.SpeechService;
 import java.io.IOException;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
+import java.nio.ShortBuffer;
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -39,7 +40,7 @@ public class TarsosDSPSpeechService {
     private TarsosDSPAudioFloatConverter converter;
     private RecognizerProcessor processor = null;
 
-    private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    //private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final Collection<RecognitionListener> listeners = new HashSet<RecognitionListener>();
 
     //private final AudioRecord recorder;
@@ -159,7 +160,11 @@ public class TarsosDSPSpeechService {
     public boolean stop() {
         boolean result = stopRecognizerThread();
         if (result) {
-            mainHandler.post(new ResultEvent(recognizer.Result(), true));
+            //mainHandler.post(new ResultEvent(recognizer.Result(), true));
+            ResultEvent r = new ResultEvent(recognizer.Result(), true);
+            for (RecognitionListener listener : listeners){
+                r.execute(listener);
+            }
         }
         return result;
     }
@@ -201,6 +206,9 @@ public class TarsosDSPSpeechService {
         private final static int NO_TIMEOUT = -1;
         private short[] buffer;
         private byte[] fbuff;
+        private ByteBuffer bb;
+        private ShortBuffer sb;     //Short view
+        private int nread;
 
         /* It does not make sense to give an AudioProcessor a timeout, so we set the default
             constructor as the only public one. We'll still keep the code for timeouts, just in case
@@ -208,7 +216,14 @@ public class TarsosDSPSpeechService {
 
         private RecognizerProcessor(int timeout) {
             buffer = new short[bufferSize];
-            fbuff = ByteBuffer.allocate(buffer.length * 2).order(ByteOrder.BIG_ENDIAN).array();
+            fbuff = ByteBuffer.allocate(buffer.length * 2).order(ByteOrder.LITTLE_ENDIAN).array();
+
+            // Vosk requires buffers in short format
+            // Endianness SHOULD be correct, but might have to check anyway
+            bb = ByteBuffer.wrap(fbuff).order(ByteOrder.BIG_ENDIAN);
+            sb = bb.asShortBuffer();
+            sb.get(buffer);
+
 
             if (timeout != NO_TIMEOUT)
                 this.timeoutSamples = timeout * sampleRate / 1000;
@@ -225,27 +240,29 @@ public class TarsosDSPSpeechService {
         public boolean process(AudioEvent audioEvent) {
 
             fbuff = converter.toByteArray(audioEvent.getFloatBuffer(), fbuff);
-
-            // Vosk requires buffers in short format
-            // Endianness SHOULD be correct, but might have to check anyway
-            ByteBuffer bb = ByteBuffer.wrap(fbuff).order(ByteOrder.BIG_ENDIAN);
-            buffer = bb.asShortBuffer().array();
-
-            int nread = buffer.length;
+            nread = buffer.length;
 
             boolean isFinal = recognizer.AcceptWaveform(buffer, nread);
+
+            ResultEvent r;
             if(isFinal){
-                mainHandler.post(new ResultEvent(recognizer.Result(), true));
+                r = new ResultEvent(recognizer.Result(), true);
             } else {
-                mainHandler.post(new ResultEvent(recognizer.PartialResult(), false));
+                r = new ResultEvent(recognizer.PartialResult(), false);
             }
+
+            for(RecognitionListener listener : listeners){
+                r.execute(listener);
+            }
+
+            //mainHandler.post(r);
 
             return false;
         }
 
         @Override
         public void processingFinished() {
-            mainHandler.removeCallbacksAndMessages(null);
+            //mainHandler.removeCallbacksAndMessages(null);
         }
     }
 
