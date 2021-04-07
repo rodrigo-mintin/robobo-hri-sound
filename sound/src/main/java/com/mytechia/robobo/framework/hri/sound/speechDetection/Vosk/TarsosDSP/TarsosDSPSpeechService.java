@@ -1,4 +1,4 @@
-aspackage com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
+package com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.TarsosDSP;
 
 import android.os.Handler;
 import android.os.Looper;
