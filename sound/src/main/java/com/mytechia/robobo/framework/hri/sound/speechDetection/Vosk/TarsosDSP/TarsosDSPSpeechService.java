@@ -204,26 +204,22 @@ public class TarsosDSPSpeechService {
         private int remainingSamples;
         private int timeoutSamples;
         private final static int NO_TIMEOUT = -1;
-        private short[] buffer;
-        private byte[] fbuff;
-        private ByteBuffer bb;
-        private ShortBuffer sb;     //Short view
         private int nread;
+
+        private short[] byteToShortArray(byte[] bytes) {
+            short[] sh = new short[bytes.length/2];
+            ByteBuffer bb = ByteBuffer.wrap(bytes).order(ByteOrder.nativeOrder());
+            for(int i=0; i<sh.length; i++){
+                sh[i] = bb.getShort();
+            }
+            return sh;
+        }
 
         /* It does not make sense to give an AudioProcessor a timeout, so we set the default
             constructor as the only public one. We'll still keep the code for timeouts, just in case
          */
 
         private RecognizerProcessor(int timeout) {
-            buffer = new short[bufferSize];
-            fbuff = ByteBuffer.allocate(buffer.length * 2).order(ByteOrder.LITTLE_ENDIAN).array();
-
-            // Vosk requires buffers in short format
-            // Endianness SHOULD be correct, but might have to check anyway
-            bb = ByteBuffer.wrap(fbuff).order(ByteOrder.BIG_ENDIAN);
-            sb = bb.asShortBuffer();
-            sb.get(buffer);
-
 
             if (timeout != NO_TIMEOUT)
                 this.timeoutSamples = timeout * sampleRate / 1000;
@@ -239,10 +235,13 @@ public class TarsosDSPSpeechService {
         @Override
         public boolean process(AudioEvent audioEvent) {
 
-            fbuff = converter.toByteArray(audioEvent.getFloatBuffer(), fbuff);
-            nread = buffer.length;
+            // Vosk requires buffers in short format
+            // Endianness SHOULD be correct, but might have to check anyway
 
-            boolean isFinal = recognizer.AcceptWaveform(buffer, nread);
+            byte[] fbuff = audioEvent.getByteBuffer();
+            nread = fbuff.length;
+
+            boolean isFinal = recognizer.AcceptWaveform(byteToShortArray(fbuff), nread/2);
 
             ResultEvent r;
             if(isFinal){

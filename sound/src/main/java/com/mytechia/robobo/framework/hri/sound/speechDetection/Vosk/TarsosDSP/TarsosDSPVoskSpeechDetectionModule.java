@@ -131,10 +131,11 @@ public class TarsosDSPVoskSpeechDetectionModule extends ASpeechDetectionModule i
     private void processResult(String s){
         //Check better iteration options
 
+        //m.log(LogLvl.DEBUG, TAG, "Json String received: " + s);
         try {
 
             JSONObject jsonObject = new JSONObject(s);
-            if(jsonObject.has("text")) {
+            if((jsonObject.has("text") && !(jsonObject.getString("text").equals("")))) {
                 String message =  jsonObject.getString("text");
 
                 m.log(LogLvl.DEBUG, TAG, "message processed: " + message);
@@ -151,7 +152,7 @@ public class TarsosDSPVoskSpeechDetectionModule extends ASpeechDetectionModule i
 
             }
 
-        }catch (JSONException e) {
+        } catch (JSONException e) {
             m.log(LogLvl.ERROR, TAG,"Couldnt Process Vosk JSON object: " + e.getMessage());
         }
     }
