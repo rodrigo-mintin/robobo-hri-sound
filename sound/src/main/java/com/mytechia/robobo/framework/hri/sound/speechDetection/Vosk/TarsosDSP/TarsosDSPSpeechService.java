@@ -40,7 +40,7 @@ public class TarsosDSPSpeechService {
     private TarsosDSPAudioFloatConverter converter;
     private RecognizerProcessor processor = null;
 
-    //private final Handler mainHandler = new Handler(Looper.getMainLooper());
+    private final Handler mainHandler = new Handler(Looper.getMainLooper());
     private final Collection<RecognitionListener> listeners = new HashSet<RecognitionListener>();
 
     //private final AudioRecord recorder;
@@ -160,11 +160,12 @@ public class TarsosDSPSpeechService {
     public boolean stop() {
         boolean result = stopRecognizerThread();
         if (result) {
-            //mainHandler.post(new ResultEvent(recognizer.Result(), true));
-            ResultEvent r = new ResultEvent(recognizer.Result(), true);
+            mainHandler.post(new ResultEvent(recognizer.Result(), true));
+
+            /*ResultEvent r = new ResultEvent(recognizer.Result(), true);
             for (RecognitionListener listener : listeners){
                 r.execute(listener);
-            }
+            }*/
         }
         return result;
     }
@@ -245,15 +246,19 @@ public class TarsosDSPSpeechService {
 
             ResultEvent r;
             if(isFinal){
-                r = new ResultEvent(recognizer.Result(), true);
+                //r = new ResultEvent(recognizer.Result(), true);
+                mainHandler.post(new ResultEvent(recognizer.Result(), true));
+
             } else {
-                r = new ResultEvent(recognizer.PartialResult(), false);
+                //r = new ResultEvent(recognizer.PartialResult(), false);
+                mainHandler.post(new ResultEvent(recognizer.PartialResult(), false));
             }
 
+            /*
             for(RecognitionListener listener : listeners){
                 r.execute(listener);
             }
-
+            */
             //mainHandler.post(r);
 
             return false;
@@ -261,7 +266,7 @@ public class TarsosDSPSpeechService {
 
         @Override
         public void processingFinished() {
-            //mainHandler.removeCallbacksAndMessages(null);
+            mainHandler.removeCallbacksAndMessages(null);
         }
     }
 
