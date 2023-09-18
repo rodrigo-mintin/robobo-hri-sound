@@ -56,7 +56,7 @@ public class TarsosDSPSpeechService {
         //super(recognizer, sampleRate);
         voskFormat = new TarsosDSPAudioFormat(sampleRate, 16 ,1,true,true);
         converter = TarsosDSPAudioFloatConverter.getConverter(voskFormat);
-        
+
         this.dispatcher = dispatcherModule;
 
         this.recognizer = recognizer;

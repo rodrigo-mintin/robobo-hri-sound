@@ -11,6 +11,8 @@ import com.mytechia.robobo.framework.hri.sound.speechDetection.ASpeechDetectionM
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechListener;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.Vosk.VoskSpeechDetectionModule;
+import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,6 +52,20 @@ public class TarsosDSPVoskSpeechDetectionModule extends ASpeechDetectionModule i
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Load remote module
+        try {
+            remoteModule = manager.getModuleInstance(IRemoteControlModule.class);
+        } catch (ModuleNotFoundException e) {
+            remoteModule = null;
+            e.printStackTrace();
+        }
+
+        if (remoteModule!=null){
+            registerCommands();
+        }
+
+
 
         m.log(LogLvl.DEBUG, TAG,"Properties loaded");
 
@@ -148,6 +164,12 @@ public class TarsosDSPVoskSpeechDetectionModule extends ASpeechDetectionModule i
 
                 for (ISpeechListener l : anyListeners) {
                     l.onResult(message);
+                }
+
+                // Send status via remote module
+                if (remoteModule!=null) {
+                    Status status = new Status("SpeechDetector::"+message);
+                    remoteModule.postStatus(status);
                 }
 
             }

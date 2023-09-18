@@ -9,7 +9,10 @@ import com.mytechia.robobo.framework.RoboboManager;
 import com.mytechia.robobo.framework.exception.ModuleNotFoundException;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ASpeechDetectionModule;
 import com.mytechia.robobo.framework.hri.sound.speechDetection.ISpeechListener;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Command;
+import com.mytechia.robobo.framework.remote_control.remotemodule.ICommandExecutor;
 import com.mytechia.robobo.framework.remote_control.remotemodule.IRemoteControlModule;
+import com.mytechia.robobo.framework.remote_control.remotemodule.Status;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -31,6 +34,8 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
 
     private String TAG = "SpeechModule";
 
+    private boolean doDetection = true;
+
     @Override
     public void startup(RoboboManager manager) throws InternalErrorException {
 
@@ -46,6 +51,19 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Load remote module
+        try {
+            remoteModule = manager.getModuleInstance(IRemoteControlModule.class);
+        } catch (ModuleNotFoundException e) {
+            remoteModule = null;
+            e.printStackTrace();
+        }
+
+        if (remoteModule!=null){
+            registerCommands();
+        }
+
 
         m.log(LogLvl.DEBUG, TAG,"Properties loaded");
 
@@ -116,6 +134,8 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
 
     private void processResult(String s){
         //Check better iteration options
+        if (!doDetection)
+            return;
 
         try {
 
@@ -131,9 +151,16 @@ public class VoskSpeechDetectionModule extends ASpeechDetectionModule implements
                     }
                 }
 
-                for (ISpeechListener l : anyListeners) {
+                for (   ISpeechListener l : anyListeners) {
                     l.onResult(message);
                 }
+
+                // Send status via remote module
+                if (remoteModule!=null) {
+                    Status status = new Status("SpeechDetector::"+message);
+                    remoteModule.postStatus(status);
+                }
+
 
             }
 
